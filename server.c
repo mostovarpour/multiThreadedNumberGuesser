@@ -2,8 +2,10 @@
 // Matthew Ostovarpour
 
 #include "header.h"
-#include <pthread.h>
 
+//These are the functions for our mutex
+void unlock();
+void lock();
 /*
  * Server code here. Only accept one connection at a time (defined in header.h)
  * On successful client connection, server runs "number_guesser" function.
@@ -14,7 +16,7 @@ int main(int argc, char** argv) {
     int server_socket;                 // descriptor of server socket
     struct sockaddr_in server_address; // for naming the server's listening socket
     int client_socket;                 // as the file descriptor to the socket
-    pthread_t threadArray[];
+    pthread_t threadArray[10];
     void *threadResult;
 
     // create unnamed network socket for server to listen on
@@ -53,7 +55,21 @@ int main(int argc, char** argv) {
             // Success! Call number_guesser for the client
             threadArray = pthread_create(&threadArray, NULL, number_guesser(client_socket), (void *)"Joined Aight.");
             //number_guesser(client_socket);
-            threadArray = pthread_join(threadArray, threadResult);
+            threadArray = pthread_join(threadArray, number_guesser);
         }
     }
+}
+
+//This function unlocks our mutex
+void unlock()
+{
+    #ifdef USE_LOCK_FILE
+    unlink("LOCK_FILE");
+    #endif
+}
+
+//This function locks the mutex
+void lock()
+{
+    while(open("LOCK_FILE", O_CREAT | O_EXCL) != -1);
 }
