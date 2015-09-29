@@ -45,6 +45,8 @@ int main(int argc, char** argv) {
     // server loop
     while (TRUE) {
 
+        // Locking the mutex
+        lock();
         // accept connection to client
         if ((client_socket = accept(server_socket, NULL, NULL)) == -1) {
 
@@ -57,6 +59,8 @@ int main(int argc, char** argv) {
             //number_guesser(client_socket);
             threadArray = pthread_join(threadArray, number_guesser);
         }
+        //Unlocking the mutex
+        unlock();
     }
 }
 
