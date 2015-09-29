@@ -2,6 +2,7 @@
 // Matthew Ostovarpour
 
 #include "header.h"
+#include <pthread.h>
 
 /*
  * Server code here. Only accept one connection at a time (defined in header.h)
@@ -13,6 +14,8 @@ int main(int argc, char** argv) {
     int server_socket;                 // descriptor of server socket
     struct sockaddr_in server_address; // for naming the server's listening socket
     int client_socket;                 // as the file descriptor to the socket
+    pthread_t threadArray[];
+    void *threadResult;
 
     // create unnamed network socket for server to listen on
     if ((server_socket = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
@@ -48,7 +51,9 @@ int main(int argc, char** argv) {
 
         } else {
             // Success! Call number_guesser for the client
-            number_guesser(client_socket);
+            threadArray = pthread_create(&threadArray, NULL, number_guesser(client_socket), (void *)"Joined Aight.");
+            //number_guesser(client_socket);
+            threadArray = pthread_join(threadArray, threadResult);
         }
     }
 }
