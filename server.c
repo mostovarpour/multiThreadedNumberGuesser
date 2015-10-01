@@ -1,6 +1,9 @@
 // Daniel Durazo
 // Matthew Ostovarpour
 
+//Apparently we need this?
+#define _REENTRANT
+
 #include "header.h"
 
 //These are the functions for our mutex
