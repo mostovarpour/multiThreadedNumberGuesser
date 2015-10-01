@@ -30,6 +30,7 @@
 void *number_guesser(void *socket) {
 
     int client_socket = *(int*) socket;
+    pthread_mutex_unlock(&mut);
     // Buffer to store client's input: attempt to read entire input line
     // in case user enters "yes" "no" or "quit" instead of y/n/q
     char input[100];

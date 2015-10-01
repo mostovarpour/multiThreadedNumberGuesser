@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <time.h>
 
 #define SERVER_ADDR "127.0.0.1" // for client
 #define PORT 23657              // port the server will listen on
@@ -25,3 +26,6 @@
 
 /* Function prototypes */
 void *number_guesser(void*);
+
+//Our mutex
+extern pthread_mutex_t mut;
