@@ -27,8 +27,9 @@
  * 2, the integer division on odd numbers results in the fence/increment to become
  * incorrect...
  */
-void number_guesser(int client_socket) {
+void *number_guesser(void *socket) {
 
+    int client_socket = *(int*) socket;
     // Buffer to store client's input: attempt to read entire input line
     // in case user enters "yes" "no" or "quit" instead of y/n/q
     char input[100];
@@ -84,7 +85,7 @@ void number_guesser(int client_socket) {
         // Case: user inputs quit command, so return to the server code (next client)
         if (input[0] == 'q') {
             close(client_socket);
-            return;
+            break;
         }
 
         // Case: user input "y" or "yes", their number is larger than the current fence

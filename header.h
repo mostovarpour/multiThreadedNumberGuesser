@@ -24,4 +24,4 @@
 #define NUM_CONNECTIONS 1       // number of pending connections in the connection queue
 
 /* Function prototypes */
-void number_guesser(int);
+void *number_guesser(void*);
