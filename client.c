@@ -33,14 +33,12 @@ int main(int argc, char** argv)
     int ifRead;
     while (didWeReadSomething == 1)
     {
-        ifRead = read(server_socket, input, sizeof(input));
+        ifRead = read(server_socket, output, sizeof(output));
         if (ifRead > 0)
         {
-            didWeReadSomething = 0;
             printf("%s", output);
+            memset(output, 0, sizeof(output));
         }
-        else didWeReadSomething = 1;
+        //else didWeReadSomething = 1;
     }
-    //Not using this right now
-    //write(server_socket, "This is a test.", sizeof(char)*15);
 }
