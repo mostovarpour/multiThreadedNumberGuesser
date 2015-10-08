@@ -8,9 +8,7 @@ int main(int argc, char** argv)
     int server_socket;                  //descriptor of server socket
     struct sockaddr_in server_address;  //for naming the server's listening socket
     char input[100];                    //input buffer
-    char output[100];                   //output buffer
-    int *memory;
-    memory = (int*)calloc(1000, sizeof(int));
+    char output[50];                   //output buffer
 
     //printf("Test\n");
     //create unnamed network socket for server to listen on
@@ -34,18 +32,17 @@ int main(int argc, char** argv)
     } 
     //printf("Test\n");
 
-    //variables to keep track of input and output
-    int ifRead;
+    //variable to store information in the buffer from the server
+    int stuffRead;
     while (1)
     {
-        //printf("Test\n");
-        ifRead = read(server_socket, output, sizeof(output));
-        if (ifRead > 0)
+        //stuffRead = read(server_socket, output, sizeof(output));
+        read(server_socket, output, sizeof(output));
+        //memset(output, 0, sizeof(output));
+        if (stuffRead > 0)
         {
             printf("%s", output);
             //memset(output, 0, sizeof(output));
-            //printf("Test\n");
         }
-        sleep(1000);
     }
 }
