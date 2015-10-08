@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     //variables to keep track of input and output
     int didWeReadSomething = 1;
     int ifRead;
-    while (didWeReadSomething == 1)
+    while (1)
     {
         ifRead = read(server_socket, output, sizeof(output));
         if (ifRead > 0)
