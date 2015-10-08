@@ -44,18 +44,24 @@ void *number_guesser(void *socket) {
     int number = 0;
 
     // Clear buffer to use
+    printf("Server Test\n");
     memset(num_str, 0, sizeof(num_str));
 
     // Use sprintf to convert MAX number to string
     sprintf(num_str, "%u", (unsigned int)MAX);
 
+    printf("Server Test\n");
     // Inform user what is the expected input
-    write(client_socket, "\nEnter y for yes, n for no, or q for quit.\n\n", sizeof(char)*45);
+    write(client_socket, "\nEnter y for yes, n for no, or q for quit.\n\n\0", sizeof(char)*45);
+    printf("Server Test\n");
 
     // Inform user what to do (initial number choice) between 1 and MAX
     write(client_socket, "Pick a number between 1 and ", sizeof(char)*28);
+    printf("Server Test\n");
     write(client_socket, num_str, sizeof(num_str)); // Buffer currently holds MAX as string
+    printf("Server Test\n");
     write(client_socket, ".\n\n", sizeof(char)*3);
+    printf("Server Test\n");
 
     // Loop until the number has been "guessed"
     // Increment variable will become zero when the number has been determined
