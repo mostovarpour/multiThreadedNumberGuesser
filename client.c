@@ -18,8 +18,8 @@ int main(int argc, char** argv)
     }
 
     //name the socket and make sure everything is good in the hood
-    server_address.sin_family       = AF_INET;              //Accept IP address
-    server_address.sin_port         = htons(PORT);          //Port to listen on
+    server_address.sin_family   = AF_INET;              //Accept IP address
+    server_address.sin_port     = htons(PORT);          //Port to listen on
     
     //connecting unnamed socket to a particular port
     if (connect(server_socket, (struct sockaddr *)&server_address, sizeof(server_address)) == -1)
