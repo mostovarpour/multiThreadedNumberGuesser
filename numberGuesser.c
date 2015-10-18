@@ -42,26 +42,26 @@ void *number_guesser(void *socket) {
     int fence = MAX/2;
     int increment = MAX/2;
     int number = 0;
+    int testNum = 0;
 
     // Clear buffer to use
-    printf("Server Test\n");
     memset(num_str, 0, sizeof(num_str));
 
     // Use sprintf to convert MAX number to string
     sprintf(num_str, "%u", (unsigned int)MAX);
 
-    printf("Server Test\n");
     // Inform user what is the expected input
-    write(client_socket, "\nEnter y for yes, n for no, or q for quit.\n\n\0", sizeof(char)*45);
-    printf("Server Test\n");
+    testNum = write(client_socket, "\nEnter y for yes, n for no, or q for quit.\n\n\0", sizeof(char)*45);
+    printf("Testing: %d\n", testNum);
+    //sleep(3000);
 
     // Inform user what to do (initial number choice) between 1 and MAX
-    write(client_socket, "Pick a number between 1 and ", sizeof(char)*28);
-    printf("Server Test\n");
-    write(client_socket, num_str, sizeof(num_str)); // Buffer currently holds MAX as string
-    printf("Server Test\n");
-    write(client_socket, ".\n\n", sizeof(char)*3);
-    printf("Server Test\n");
+    testNum = write(client_socket, "Pick a number between 1 and ", sizeof(char)*28);
+    printf("Testing: %d\n", testNum);
+    testNum = write(client_socket, num_str, sizeof(num_str)); // Buffer currently holds MAX as string
+    printf("Testing: %d\n", testNum);
+    testNum = write(client_socket, ".\n\n", sizeof(char)*3);
+    printf("Testing: %d\n", testNum);
 
     // Loop until the number has been "guessed"
     // Increment variable will become zero when the number has been determined
@@ -75,9 +75,12 @@ void *number_guesser(void *socket) {
         sprintf(num_str, "%u", fence);
 
         // Ask user if their number is higher/lower than our "guess" (fence)
-        write(client_socket, "Is your number greater than ", sizeof(char)*28);
-        write(client_socket, num_str, sizeof(num_str));
-        write(client_socket, "?\n => ", sizeof(char)*6);
+        testNum = write(client_socket, "Is your number greater than ", sizeof(char)*28);
+        printf("Testing: %d\n", testNum);
+        testNum = write(client_socket, num_str, sizeof(num_str));
+        printf("Testing: %d\n", testNum);
+        testNum = write(client_socket, "?\n => ", sizeof(char)*6);
+        printf("Testing: %d\n", testNum);
 
         // Read input from socket. 100 bytes should be enough to grab all input
         // (including any potential extra characters sent by telnet)
@@ -119,6 +122,7 @@ void *number_guesser(void *socket) {
             fence -= increment;
 
         }
+        //sleep(1);
 
         // Move to next loop iteration: ask user and make next guess
     }
@@ -136,9 +140,12 @@ void *number_guesser(void *socket) {
     sprintf(num_str, "%u", number);
 
     // Send the final guessed number back to client
-    write(client_socket, "Your number is: ", sizeof(char)*16);
-    write(client_socket, &num_str, sizeof(num_str));
-    write(client_socket, "\n\n", sizeof(char)*2);
+    testNum = write(client_socket, "Your number is: ", sizeof(char)*16);
+    printf("Testing: %d\n", testNum);
+    testNum = write(client_socket, &num_str, sizeof(num_str));
+    printf("Testing: %d\n", testNum);
+    testNum = write(client_socket, "\n\n", sizeof(char)*2);
+    printf("Testing: %d\n", testNum);
 
     // Cleanup: close socket
     if (close(client_socket) == -1) {
